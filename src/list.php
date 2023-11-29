@@ -15,11 +15,14 @@ $reader = new XMLReader();
 $reader->open($filename);
 $doc = new DOMDocument;
 
+// Skip to target tag
 while ($reader->read() && $reader->name !== $tagname);
+
 while ($reader->name === $tagname)
 {
     $node = simplexml_import_dom($doc->importNode($reader->expand(), true));
-    var_dump($node);
+    echo($node->asXML());
+    echo("\n");
     $reader->next($tagname);
 }
 
